@@ -18,6 +18,8 @@ public class Solver : MonoBehaviour
 {
     public Word target;
     public Word guess;
+    public Word reject;
+    public Word keep;
     public TextAsset wordList;
     public Slider progress;
     public Ranking topTen;
@@ -37,21 +39,42 @@ public class Solver : MonoBehaviour
         var stopwath = new System.Diagnostics.Stopwatch();
         stopwath.Start();
         Match match = new Match(words[0]);
+        //int i = 12016;
         for (int i = 0; i < words.Count; ++i)
         {
             progress.value = (float)i / (float)words.Count;
             string start = words[i];
             guess.Set(start);
             float rating = 0;
+            //string word = words[Random.Range(0, words.Count)];
+            //target.Set(word);
             foreach (string word in words)
             {
                 match.Set(start);
-                target.Set(word);
                 match.Score(word);
-                guess.Set(match);
                 rating += Rejections(match);
+/*
+                guess.Set(match);
+                while (true)
+                {
+                    string candidate = words[Random.Range(0, words.Count)];
+                    if (match.CanReject(candidate))
+                    {
+                        reject.Set(candidate);
+                    }
+                    else
+                    {
+                        keep.Set(candidate);
+                    }
+                    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+                    yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Space));
+                }
+*/
+
                 if (stopwath.ElapsedMilliseconds > 33)
                 {
+                    target.Set(word);
+                    guess.Set(match);
                     stopwath.Restart();
                     yield return null;
                 }
