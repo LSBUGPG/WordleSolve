@@ -15,13 +15,11 @@ public class Match
 
     public Clue [] clues;
     public string word;
-    Histogram histogram;
 
     public Match(string word)
     {
         this.word = word;
         clues = new Clue [word.Length];
-        histogram = new Histogram(word);
     }
 
     void ClearClues()
@@ -36,7 +34,6 @@ public class Match
     {
         this.word = start;
         ClearClues();
-        histogram = new Histogram(start);
     }
 
     public void Score(string target)
