@@ -24,30 +24,6 @@ public class Histogram
         }
     }
 
-    public Histogram(Match match)
-    {
-        letters = new int [alphabet];
-        for (int i = 0; i < match.clues.Length; ++i)
-        {
-            Match.Clue clue = match.clues[i];
-            if (clue == Match.Clue.Correct || clue == Match.Clue.Used)
-            {
-                letters[IndexFromLetter(match.word[i])]++;
-            }
-        }
-    }
-
-    public Histogram(Histogram source)
-    {
-        letters = new int [alphabet];
-        Copy(source);
-    }
-
-    public void Copy(Histogram source)
-    {
-        Array.Copy(source.letters, letters, alphabet);
-    }
-
     public void Use(char letter)
     {
         letters[IndexFromLetter(letter)]--;

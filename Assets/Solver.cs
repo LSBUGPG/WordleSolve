@@ -93,14 +93,13 @@ public class Solver : MonoBehaviour
             {
                 char c = match.word[i];
                 possible.Intersect(words.WordsWithLetterInPlace(c, i));
-                letters[Histogram.IndexFromLetter(c)]++;
             }
         }
 
         for (int i = 0; i < size; ++i)
         {
             char c = match.word[i];
-            if (match.clues[i] == Match.Clue.Used)
+            if (match.clues[i] == Match.Clue.Used || match.clues[i] == Match.Clue.Correct)
             {
                 letters[Histogram.IndexFromLetter(c)]++;
             }
