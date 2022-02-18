@@ -14,51 +14,6 @@ public struct Score
     }
 }
 
-public class WordSet
-{
-    bool [] set;
-    int count;
-
-    public WordSet(int count, bool state)
-    {
-        set = new bool [count];
-        int i;
-        for (i = 0; i < count; ++i)
-        {
-            set[i] = state;
-        }
-        this.count = state? count : 0;
-    }
-
-    public void Intersect(WordSet intersect)
-    {
-        int size = set.Length;
-        for (int i = 0; i < size; ++i)
-        {
-            bool removed = set[i] && !intersect.set[i];
-            if (removed)
-            {
-                count--;
-                set[i] = intersect.set[i];
-            }
-        }
-    }
-
-    public void Add(int index)
-    {
-        if (!set[index])
-        {
-            set[index] = true;
-            count++;
-        }
-    }
-
-    public int Count()
-    {
-        return count;
-    }
-}
-
 public class Solver : MonoBehaviour
 {
     public Word target;
@@ -138,14 +93,13 @@ public class Solver : MonoBehaviour
             {
                 char c = match.word[i];
                 possible.Intersect(words.WordsWithLetterInPlace(c, i));
-                letters[Histogram.IndexFromLetter(c)]++;
             }
         }
 
         for (int i = 0; i < size; ++i)
         {
             char c = match.word[i];
-            if (match.clues[i] == Match.Clue.Used)
+            if (match.clues[i] == Match.Clue.Used || match.clues[i] == Match.Clue.Correct)
             {
                 letters[Histogram.IndexFromLetter(c)]++;
             }
