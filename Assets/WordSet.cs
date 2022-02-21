@@ -4,45 +4,65 @@ using UnityEngine;
 
 public class WordSet
 {
-    bool [] set;
+    List<int> set;
+    bool full = false;
     int count;
 
     public WordSet(int count, bool state)
     {
-        set = new bool [count];
-        int i;
-        for (i = 0; i < count; ++i)
+        full = state;
+        if (full)
         {
-            set[i] = state;
+            this.count = count;
         }
-        this.count = state? count : 0;
+        else
+        {
+            set = new List<int>();
+        }
     }
 
     public void Intersect(WordSet intersect)
     {
-        int size = set.Length;
-        for (int i = 0; i < size; ++i)
+        if (full)
         {
-            bool removed = set[i] && !intersect.set[i];
-            if (removed)
+            set = intersect.set;
+            full = false;
+        }
+        else
+        {
+            int myIndex = 0;
+            int intersectIndex = 0;
+
+            List<int> intersection = new List<int>();
+            while (myIndex < set.Count && intersectIndex < intersect.set.Count)
             {
-                count--;
-                set[i] = intersect.set[i];
+                if (set[myIndex] < intersect.set[intersectIndex])
+                {
+                    myIndex++;
+                }
+                else if (intersect.set[intersectIndex] < set[myIndex])
+                {
+                    intersectIndex++;
+                }
+                else
+                {
+                    intersection.Add(set[myIndex]);
+                    myIndex++;
+                    intersectIndex++;
+                }
             }
+            set = intersection;
         }
     }
 
     public void Add(int index)
     {
-        if (!set[index])
-        {
-            set[index] = true;
-            count++;
-        }
+        set.Add(index);
     }
 
     public int Count()
     {
+        int count = full? this.count : set.Count;
         return count;
     }
 }

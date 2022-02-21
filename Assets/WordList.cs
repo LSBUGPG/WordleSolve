@@ -5,7 +5,6 @@ using UnityEngine;
 public class WordList
 {
     readonly int size;
-    readonly WordSet words;
     readonly WordSet [,] wordsWithLetterCount;
     readonly WordSet [,] wordsWithLetterPlace;
 
@@ -24,7 +23,6 @@ public class WordList
 
     public WordList(List<string> list)
     {
-        words = new WordSet(list.Count, true);
         int count = list.Count;
         Debug.Assert(count > 0, "must supply a non-empty list");
         size = 5;
@@ -62,11 +60,6 @@ public class WordList
                 wordsWithLetterCount[n, Histogram.IndexFromLetter(a)].Add(w);
             }
         }
-    }
-
-    public WordSet AllWords()
-    {
-        return words;
     }
 
     public WordSet WordsWithLetterInPlace(char c, int position)
