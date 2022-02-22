@@ -1,23 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WordSet
 {
-    List<int> set;
+    int [] set;
     bool full = false;
     int count;
 
     public WordSet(int count, bool state)
     {
         full = state;
+        set = new int [count];
         if (full)
         {
             this.count = count;
         }
         else
         {
-            set = new List<int>();
+            this.count = 0;
         }
     }
 
@@ -25,44 +27,55 @@ public class WordSet
     {
         if (full)
         {
-            set = intersect.set;
+            for (int i = 0; i < intersect.count; ++i)
+            {
+                set[i] = intersect.set[i];
+            }
+            count = intersect.count;
             full = false;
         }
         else
         {
             int myIndex = 0;
+            int myNextIndex = 0;
             int intersectIndex = 0;
 
-            List<int> intersection = new List<int>();
-            while (myIndex < set.Count && intersectIndex < intersect.set.Count)
+            while (myNextIndex < count && intersectIndex < intersect.count)
             {
-                if (set[myIndex] < intersect.set[intersectIndex])
+                if (set[myNextIndex] < intersect.set[intersectIndex])
                 {
-                    myIndex++;
+                    myNextIndex++;
                 }
-                else if (intersect.set[intersectIndex] < set[myIndex])
+                else if (intersect.set[intersectIndex] < set[myNextIndex])
                 {
                     intersectIndex++;
                 }
                 else
                 {
-                    intersection.Add(set[myIndex]);
+                    set[myIndex] = set[myNextIndex];
                     myIndex++;
+                    myNextIndex++;
                     intersectIndex++;
                 }
             }
-            set = intersection;
+            count = myIndex;
         }
     }
 
     public void Add(int index)
     {
-        set.Add(index);
+        set[count] = index;
+        count++;
     }
 
     public int Count()
     {
-        int count = full? this.count : set.Count;
         return count;
+    }
+
+    public void Fill()
+    {
+        full = true;
+        count = set.Length;
     }
 }

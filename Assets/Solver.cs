@@ -25,11 +25,13 @@ public class Solver : MonoBehaviour
     WordList words;
     List<Score> rankings = new List<Score>();
     static readonly int size = 5;
+    WordSet possible;
 
     void Start()
     {
         allWords = new List<string>(wordList.text.Replace("\r\n", "\n").Split('\n'));
         words = new WordList(allWords);
+        possible = new WordSet(allWords.Count, true);
         StartCoroutine(Solve());
     }
 
@@ -82,9 +84,10 @@ public class Solver : MonoBehaviour
         }
     }
 
+
     float Rejections(Match match)
     {
-        WordSet possible = new WordSet(allWords.Count, true);
+        possible.Fill();
         int all = possible.Count();
         int [] letters = new int [Histogram.alphabet];
         for (int i = 0; i < size; ++i)
