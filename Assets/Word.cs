@@ -12,7 +12,6 @@ public class Word : MonoBehaviour
     private void Awake()
     {
         letters = new List<Letter>();
-        Debug.Log($"letters = {letters}");
         for (int i = 0; i < size; ++i)
         {
             letters.Add(Instantiate(prefab, transform));
@@ -21,12 +20,8 @@ public class Word : MonoBehaviour
 
     public void SetWord(string word)
     {
-        Debug.Log(word.Length);
         for (int i = 0; i < word.Length; ++i)
         {
-            Debug.Log($"i = {i}");
-            Debug.Log($"word[i] = {word[i]}");
-            Debug.Log($"letters[i] = {letters[i]}");
             letters[i].SetLetter(word[i]);
         }
     }
