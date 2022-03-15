@@ -21,9 +21,12 @@ public class LoadWords : MonoBehaviour
             hidden.SetWord(hiddenWord);
             guess.SetWord(guessWord);
 
-            for (int i = 0; i < hiddenWord.Length; ++i)
+            Match match = new Match(hiddenWord);
+            string result = match.Compare(guessWord);
+
+            for (int i = 0; i < result.Length; ++i)
             {
-                if (guessWord[i] == hiddenWord[i])
+                if (result[i] == 'm')
                 {
                     guess.SetMatchedLetter(i);
                 }

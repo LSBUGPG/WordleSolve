@@ -14,4 +14,9 @@ public class Histogram
             letters[letter - 'a']++;
         }
     }
+
+    public int LetterCount(char letter)
+    {
+        return letters[letter - 'a'];
+    }
 }
