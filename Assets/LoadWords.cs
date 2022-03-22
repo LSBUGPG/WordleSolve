@@ -30,15 +30,17 @@ public class LoadWords : MonoBehaviour
                 {
                     guess.SetMatchedLetter(i);
                 }
+                else if (result[i] == 'c')
+                {
+                    guess.SetContainingLetter(i);
+                }
+                else
+                {
+                    guess.SetNotContainingLetter(i);
+                }
             }
 
-            histogram = new Histogram(hiddenWord);
-            for (int i = 0; i < 26; ++i)
-            {
-                Debug.Log($"{(char)('a' + i)} = {histogram.letters[i].ToString()}");
-            }
-
-            yield break;
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         }
     }
 }

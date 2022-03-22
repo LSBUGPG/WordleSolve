@@ -30,4 +30,14 @@ public class Word : MonoBehaviour
     {
         letters[i].SetColour(Color.green);
     }
+
+    internal void SetContainingLetter(int i)
+    {
+        letters[i].SetColour(Color.yellow);
+    }
+
+    internal void SetNotContainingLetter(int i)
+    {
+        letters[i].SetColour(Color.grey);
+    }
 }

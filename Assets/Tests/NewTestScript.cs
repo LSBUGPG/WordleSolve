@@ -39,4 +39,20 @@ public class NewTestScript
         Assert.That(result[2], Is.EqualTo('c'));
     }
 
+    [Test]
+    public void TestGuessContainsTwo()
+    {
+        Match match = new Match("onkus");
+        string result = match.Compare("fanny");
+        Assert.That(result, Is.EqualTo("nncnn"));
+    }
+
+    [Test]
+    public void TestGuessContainsTwoAndOneMatch()
+    {
+        Match match = new Match("trogs");
+        string result = match.Compare("siphs");
+        Assert.That(result, Is.EqualTo("nnnnm"));
+    }
+
 }

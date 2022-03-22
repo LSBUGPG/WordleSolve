@@ -13,6 +13,7 @@ public class Match
 
     public string Compare(string test)
     {
+        Histogram histogram = new Histogram(target);
         char[] result = new char[target.Length];
         for (int i = 0; i < target.Length; ++i)
         {
@@ -20,9 +21,10 @@ public class Match
             {
                 result[i] = 'm';
             }
-            else if (target.Contains(test[i].ToString()))
+            else if (histogram.LetterCount(test[i]) > 0)
             {
                 result[i] = 'c';
+                histogram.UseLetter(test[i]);
             }
             else
             {

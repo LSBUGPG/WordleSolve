@@ -19,4 +19,9 @@ public class Histogram
     {
         return letters[letter - 'a'];
     }
+
+    internal void UseLetter(char letter)
+    {
+        letters[letter - 'a']--;
+    }
 }
