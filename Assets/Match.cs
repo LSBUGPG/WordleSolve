@@ -20,15 +20,23 @@ public class Match
             if (target[i] == test[i])
             {
                 result[i] = 'm';
-            }
-            else if (histogram.LetterCount(test[i]) > 0)
-            {
-                result[i] = 'c';
                 histogram.UseLetter(test[i]);
             }
-            else
+        }
+
+        for (int i = 0; i < target.Length; ++i)
+        {
+            if (result[i] != 'm')
             {
-                result[i] = 'n';
+                if (histogram.LetterCount(test[i]) > 0)
+                {
+                    result[i] = 'c';
+                    histogram.UseLetter(test[i]);
+                }
+                else
+                {
+                    result[i] = 'n';
+                }
             }
         }
         return new string(result);

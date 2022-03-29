@@ -55,4 +55,12 @@ public class NewTestScript
         Assert.That(result, Is.EqualTo("nnnnm"));
     }
 
+    [Test]
+    public void TestTripleLetter()
+    {
+        Match match = new Match("salad");
+        string result = match.Compare("saala");
+        Assert.That(result, Is.EqualTo("mmccn"));
+    }
+
 }
